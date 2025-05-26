@@ -1,0 +1,163 @@
+.vet-loading-container {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #ffffff 0%, #fbfbfb 100%);
+    padding: 1rem;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .vet-shapes-container {
+    position: relative;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .paw-print {
+    position: absolute;
+    font-size: 2rem;
+    opacity: 0.5;
+    animation: bounce 2s infinite ease-in-out;
+    color: #1a73e8;
+  }
+  
+  .paw-1 {
+    top: -20px;
+    left: -30px;
+    animation-delay: 0s;
+  }
+  
+  .paw-2 {
+    bottom: -10px;
+    right: -20px;
+    animation-delay: 0.5s;
+  }
+  
+  .paw-3 {
+    top: 50%;
+    right: -40px;
+    animation-delay: 1s;
+  }
+  
+  .vet-center-element {
+    position: relative;
+    display: flex;
+    height: 6rem;
+    width: 6rem;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .vet-rotating-part {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    opacity: 0.7;
+    transition: transform 0.3s ease-out;
+    background: radial-gradient(circle, #4285f4 0%, #1a73e8 100%);
+  }
+  
+  .part-1 {
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  }
+  
+  .part-2 {
+    clip-path: polygon(50% 100%, 0 0, 100% 0);
+  }
+  
+  .vet-pet-icon {
+    position: absolute;
+    font-size: 2.5rem;
+    z-index: 10;
+    animation: pulse 1.5s infinite;
+    color: #0d47a1;
+  }
+  
+  .vet-progress-text {
+    position: absolute;
+    bottom: -2rem;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #0d47a1;
+  }
+  
+  .vet-progress-container {
+    position: relative;
+    height: 0.5rem;
+    width: 16rem;
+    overflow: hidden;
+    border-radius: 1rem;
+    background-color: #bbdefb;
+    margin-top: 1rem;
+  }
+  
+  @media (min-width: 640px) {
+    .vet-progress-container {
+      width: 24rem;
+    }
+  }
+  
+  .vet-progress-bar {
+    position: absolute;
+    height: 100%;
+    border-radius: 1rem;
+    background: linear-gradient(90deg, #64b5f6 0%, #1976d2 100%);
+    transition: width 0.3s ease-out;
+    z-index: 2;
+  }
+  
+  .vet-progress-symbols {
+    position: absolute;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    z-index: 1;
+  }
+  
+  .vet-progress-symbols span {
+    font-size: 0.8rem;
+    opacity: 0.4;
+    color: #0d47a1;
+  }
+  
+  .vet-status-text {
+    margin-top: 1.5rem;
+    text-align: center;
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: #1565c0;
+    max-width: 80%;
+  }
+  
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  @keyframes bounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-15px);
+    }
+  }
+  
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+  }

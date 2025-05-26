@@ -1,0 +1,103 @@
+/* Estilos corregidos para NotFound */
+.not-found-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.not-found-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.not-found-hero {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 6rem 0 3rem;
+}
+
+.not-found-bg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  background-color: rgba(10, 92, 141, 0.1);
+  clip-path: polygon(20% 0%, 100% 0%, 100% 100%, 0% 100%);
+  z-index: 0;
+}
+
+.not-found-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.not-found-icon {
+  background-color: #0a5c8d;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 2rem;
+}
+
+.not-found-icon svg {
+  color: #fff;
+  font-size: 60px;
+}
+
+.not-found-title {
+  font-size: 6rem;
+  font-weight: bold;
+  color: #0a5c8d;
+  margin-bottom: 1rem;
+  line-height: 1;
+}
+
+.not-found-subtitle {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.not-found-message {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  color: #6b7280;
+}
+
+.not-found-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .not-found-title {
+    font-size: 4rem;
+  }
+
+  .not-found-subtitle {
+    font-size: 1.8rem;
+  }
+
+  .not-found-icon {
+    width: 100px;
+    height: 100px;
+  }
+
+  .not-found-icon svg {
+    font-size: 50px;
+  }
+}

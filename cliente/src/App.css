@@ -1,0 +1,27 @@
+/* Estilos globales para la aplicación */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Aseguramos que los contenedores en Home.jsx mantengan su estilo original */
+.akeso-veterinaria .container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: block;
+}
+
+/* Ajuste para el contenido principal cuando hay header fijo */
+.akeso-veterinaria main {
+  padding-top: 0;
+  margin-top: 0;
+}
+
+/* Eliminar el padding-top de la sección hero para evitar espacio extra */
+.hero-section {
+  padding-top: 8rem !important;
+}

@@ -1,0 +1,138 @@
+/* Footer */
+.footer {
+    background-color: #111827;
+    color: #ffffff;
+    padding: 4rem 0 1rem;
+  }
+  
+  .footer-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+  }
+  
+  .footer-logo {
+    filter: brightness(0) invert(1);
+    padding: 0.5rem;
+    border-radius: 1rem;
+    display: inline-block;
+  }
+  
+  .footer-logo img {
+    height: 10rem;
+  }
+  
+  .footer-column p {
+    color: #9ca3af;
+    margin-bottom: 1.5rem;
+  }
+  
+  .footer-column h3 {
+    font-size: 1.125rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .footer-links li {
+    margin-bottom: 1rem;
+  }
+  
+  .footer-links a {
+    color: #9ca3af;
+    transition: color 0.3s ease;
+  }
+  
+  .footer-links a:hover {
+    color: #ffffff;
+  }
+  
+  .footer-contact li {
+    display: flex;
+    align-items: center;
+    color: #9ca3af;
+    margin-bottom: 1.5rem;
+  }
+  
+  .footer-contact li svg {
+    color: #0b98ea;
+    margin-right: 0.75rem;
+    font-size: 1.25rem;
+  }
+  
+  .footer-contact li span {
+    color: #9ca3af;
+  }
+  
+  .footer-contact li div {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid #1f2937;
+  }
+  
+  .footer-bottom p {
+    color: #6b7280;
+    margin-bottom: 0;
+  }
+
+  /* Estilos para iconos sociales */
+.social-icons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  
+  .social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  
+  .social-icon:hover {
+    transform: translateY(-3px);
+  }
+  
+  .social-icon.facebook:hover {
+    background-color: #1877f2;
+  }
+  
+  .social-icon.twitter:hover {
+    background-color: #1da1f2;
+  }
+  
+  .social-icon.instagram:hover {
+    background-color: #e1306c;
+  }
+  
+  .social-icon.youtube:hover {
+    background-color: #ff0000;
+  }
+  
+  .social-icon.whatsapp:hover {
+    background-color: #25d366;
+  }
+  
+  
+  @media (min-width: 768px) {
+    .footer-content {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .footer-content {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  

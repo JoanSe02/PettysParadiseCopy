@@ -1,0 +1,796 @@
+ /* Variables de colores */
+:root {
+    --primary-color: #0a6ebd;
+    --primary-light: #1976b2;
+    --primary-dark: #085a9d;
+    --primary-gradient: linear-gradient(135deg, #0a5483 0%, #1976b2 100%);
+    --secondary-color: #e8f4fc;
+    --secondary-light: #f5f9fd;
+    --text-color: #333333;
+    --text-light: #666666;
+    --text-dark: #0a4e7a;
+    --error-color: #e53935;
+    --warning-color: #ffa000;
+    --success-color: #43a047;
+    --border-color: #e0e0e0;
+    --input-bg: #f9f9f9;
+    --shadow-color: rgba(10, 84, 131, 0.1);
+    --white: #ffffff;
+    --border-radius: 8px;
+    --card-shadow: 0 2px 8px var(--shadow-color);
+    --transition: all 0.3s ease;
+    --page-bg: #f0f5fa;
+  }
+  
+  /* Reset & Base Styles */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text-color);
+    background-color: var(--page-bg);
+    line-height: 1.6;
+  }
+  
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  ul {
+    list-style: none;
+  }
+  
+  button {
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-family: inherit;
+  }
+  
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  
+  /* Layout */
+  .dashboard-container {
+    display: flex;
+    min-height: 100vh;
+    position: relative;
+  }
+  
+  /* Main Content */
+  .main-content {
+    flex: 1;
+    margin-left: 280px; /* Asume que el Dashboard tiene un ancho de 280px */
+    transition: var(--transition);
+    padding: 20px 30px;
+  }
+  
+  /* Citas Header */
+  .citas-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+  }
+  
+  .citas-title h2 {
+    font-size: 1.8rem;
+    color: var(--text-dark);
+    margin-bottom: 5px;
+    font-weight: 700;
+  }
+  
+  .citas-title p {
+    color: var(--text-light);
+    font-size: 1rem;
+  }
+  
+  .add-cita-btn {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    background-color: var(--primary-color);
+    color: var(--white);
+    border-radius: var(--border-radius);
+    font-weight: 500;
+    transition: var(--transition);
+    box-shadow: 0 2px 8px var(--shadow-color);
+  }
+  
+  .plus-icon {
+    margin-right: 8px;
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  .add-cita-btn:hover {
+    background-color: var(--primary-dark);
+  }
+  
+  /* Citas Filters */
+  .citas-filters {
+    background-color: var(--white);
+    border-radius: var(--border-radius);
+    padding: 25px;
+    margin-bottom: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: flex-end;
+    box-shadow: var(--card-shadow);
+  }
+  
+  .filter-group {
+    display: flex;
+    flex-direction: column;
+    min-width: 180px;
+    flex: 1;
+  }
+  
+  .filter-group label {
+    font-size: 0.95rem;
+    color: var(--text-color);
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+  
+  .filter-select,
+  .filter-input {
+    padding: 10px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background-color: var(--white);
+    font-size: 0.95rem;
+    width: 100%;
+    height: 42px;
+  }
+  
+  .filter-select:focus,
+  .filter-input:focus {
+    outline: none;
+    border-color: var(--primary-light);
+    box-shadow: 0 0 0 3px rgba(25, 118, 178, 0.1);
+  }
+  
+  .date-input-container {
+    position: relative;
+  }
+  
+  .calendar-icon {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+    cursor: pointer;
+    pointer-events: none; /* Evita que el icono interfiera con el input */
+  }
+  
+  /* Botón para limpiar filtros */
+  .clear-filters-btn {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    border-radius: var(--border-radius);
+    font-weight: 500;
+    transition: var(--transition);
+    height: 42px;
+    border: 1px solid var(--primary-light);
+  }
+  
+  .clear-filters-btn:hover {
+    background-color: var(--secondary-light);
+  }
+  
+  .clear-icon {
+    margin-right: 8px;
+  }
+  
+  /* View Toggle */
+  .view-toggle {
+    display: flex;
+    gap: 0;
+    margin-bottom: 20px;
+  }
+  
+  .view-btn {
+    display: flex;
+    align-items: center;
+    padding: 8px 15px;
+    background-color: var(--white);
+    color: var(--text-color);
+    font-weight: 500;
+    transition: var(--transition);
+    border: 1px solid var(--primary-color);
+    border-radius: var(--border-radius);
+  }
+  
+  .view-icon {
+    margin-right: 8px;
+  }
+  
+  .view-btn.active {
+    background-color: #e6f3fb;
+    color: var(--primary-color);
+  }
+  
+  .view-btn:hover:not(.active) {
+    background-color: var(--secondary-light);
+  }
+  
+  /* Citas List */
+  .citas-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 30px;
+  }
+  
+  .cita-card {
+    display: flex;
+    background-color: var(--white);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--card-shadow);
+    transition: var(--transition);
+  }
+  
+  .cita-card:hover {
+    box-shadow: 0 4px 12px var(--shadow-color);
+  }
+  
+  .cita-date {
+    width: 120px;
+    background-color: #e6f3fb;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    color: var(--primary-color);
+    text-align: center;
+  }
+  
+  .month {
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+  
+  .day {
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 5px;
+  }
+  
+  .year {
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    color: #666;
+  }
+  
+  .time {
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  
+  .cita-details {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .cita-info h3 {
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+    color: var(--text-dark);
+  }
+  
+  .cita-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 15px;
+  }
+  
+  .meta-item {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    color: var(--text-color);
+  }
+  
+  .meta-icon {
+    margin-right: 8px;
+    color: var(--primary-color);
+  }
+  
+  .cita-status {
+    margin-bottom: 20px;
+  }
+  
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  
+  .status-icon {
+    margin-right: 5px;
+  }
+  
+  .status-badge.confirmed {
+    background-color: rgba(67, 160, 71, 0.1);
+    color: var(--success-color);
+    border: 1px solid rgba(67, 160, 71, 0.2);
+  }
+  
+  .status-badge.pending {
+    background-color: rgba(255, 160, 0, 0.1);
+    color: var(--warning-color);
+    border: 1px solid rgba(255, 160, 0, 0.2);
+  }
+  
+  .cita-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  
+  .action-btn {
+    display: flex;
+    align-items: center;
+    padding: 8px 15px;
+    border-radius: var(--border-radius);
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: var(--transition);
+    border: 1px solid;
+  }
+  
+  .action-icon {
+    margin-right: 5px;
+  }
+  
+  .action-btn.view-btn {
+    background-color: #f0f7fc;
+    color: var(--primary-color);
+    border-color: #d1e6f5;
+  }
+  
+  .action-btn.view-btn:hover {
+    background-color: #d1e9f9;
+  }
+  
+  .action-btn.edit-btn {
+    background-color: rgba(25, 118, 210, 0.05);
+    color: #1976d2;
+    border-color: rgba(25, 118, 210, 0.2);
+  }
+  
+  .action-btn.edit-btn:hover {
+    background-color: rgba(25, 118, 210, 0.1);
+  }
+  
+  .action-btn.cancel-btn {
+    background-color: rgba(229, 57, 53, 0.05);
+    color: var(--error-color);
+    border-color: rgba(229, 57, 53, 0.2);
+  }
+  
+  .action-btn.cancel-btn:hover {
+    background-color: rgba(229, 57, 53, 0.1);
+  }
+  
+  .action-btn.reschedule-btn {
+    background-color: rgba(156, 39, 176, 0.05);
+    color: #9c27b0;
+    border-color: rgba(156, 39, 176, 0.2);
+  }
+  
+  .action-btn.reschedule-btn:hover {
+    background-color: rgba(156, 39, 176, 0.1);
+  }
+  
+  /* Modal */
+  .modal {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-content {
+    background-color: var(--white);
+    border-radius: var(--border-radius);
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    animation: modalFadeIn 0.3s ease;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  
+  /* Modal de vista con ancho fijo */
+  .modal-view {
+    width: 600px;
+  }
+  
+  @keyframes modalFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Añadir estos estilos adicionales al final del archivo Citas.css */
+  
+  /* Estilos para los estados de citas */
+  .status-badge.canceled {
+    background-color: rgba(229, 57, 53, 0.1);
+    color: var(--error-color);
+    border: 1px solid rgba(229, 57, 53, 0.2);
+  }
+  
+  .status-badge.completed {
+    background-color: rgba(76, 175, 80, 0.1);
+    color: #4caf50;
+    border: 1px solid rgba(76, 175, 80, 0.2);
+  }
+  
+  .status-badge.missed {
+    background-color: rgba(158, 158, 158, 0.1);
+    color: #9e9e9e;
+    border: 1px solid rgba(158, 158, 158, 0.2);
+  }
+  
+  /* Estilos para mensajes de estado */
+  .loading-message,
+  .error-message2,
+  .empty-message {
+    padding: 20px;
+    text-align: center;
+    background-color: var(--white);
+    border-radius: var(--border-radius);
+    margin-bottom: 20px;
+    box-shadow: var(--card-shadow);
+  }
+  
+  .loading-message {
+    color: var(--primary-color);
+  }
+  
+  .error-message2 {
+    color: var(--error-color);
+  }
+  
+  .empty-message {
+    color: var(--text-light);
+  }
+  
+  /* Estilos para la vista detallada de cita */
+  .cita-details-view {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .detail-group {
+    padding: 15px;
+    background-color: var(--input-bg);
+    border-radius: var(--border-radius);
+  }
+  
+  .detail-group h3 {
+    margin-bottom: 10px;
+    color: var(--primary-color);
+    font-size: 1.1rem;
+  }
+  
+  .detail-description {
+    margin: 10px 0;
+    font-style: italic;
+    color: var(--text-light);
+  }
+  
+  .status-text {
+    font-weight: 600;
+  }
+  
+  .status-text.pendiente {
+    color: var(--warning-color);
+  }
+  
+  .status-text.confirmada {
+    color: var(--success-color);
+  }
+  
+  .status-text.cancelada {
+    color: var(--error-color);
+  }
+  
+  .status-text.realizada {
+    color: #4caf50;
+  }
+  
+  .status-text.no_asistida {
+    color: #9e9e9e;
+  }
+  
+  /* Estilos para el modal de edición */
+  .estado-actions {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: var(--input-bg);
+    border-radius: var(--border-radius);
+  }
+  
+  .estado-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .estado-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 15px;
+    border-radius: var(--border-radius);
+    font-weight: 500;
+    transition: var(--transition);
+    border: 1px solid;
+  }
+  
+  .estado-btn.confirm-btn {
+    background-color: rgba(67, 160, 71, 0.1);
+    color: var(--success-color);
+    border-color: rgba(67, 160, 71, 0.2);
+  }
+  
+  .estado-btn.confirm-btn:hover,
+  .estado-btn.confirm-btn.active {
+    background-color: rgba(67, 160, 71, 0.2);
+  }
+  
+  .estado-btn.cancel-btn {
+    background-color: rgba(229, 57, 53, 0.1);
+    color: var(--error-color);
+    border-color: rgba(229, 57, 53, 0.2);
+  }
+  
+  .estado-btn.cancel-btn:hover,
+  .estado-btn.cancel-btn.active {
+    background-color: rgba(229, 57, 53, 0.2);
+  }
+  
+  .mr-2 {
+    margin-right: 8px;
+  }
+  
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .modal-header h2 {
+    font-size: 1.3rem;
+    color: var(--text-dark);
+  }
+  
+  .close-btn {
+    font-size: 1.2rem;
+    color: var(--text-light);
+    transition: var(--transition);
+  }
+  
+  .close-btn:hover {
+    color: var(--error-color);
+  }
+  
+  .modal-body {
+    padding: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-row {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .form-row .form-group {
+    flex: 1;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+    color: var(--text-color);
+    font-weight: 500;
+  }
+  
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background-color: var(--white);
+    font-size: 0.95rem;
+    transition: var(--transition);
+  }
+  
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-light);
+    box-shadow: 0 0 0 3px rgba(25, 118, 178, 0.1);
+  }
+  
+  /* Mensajes de error y ayuda */
+  .error-message2 {
+    color: var(--error-color);
+    font-size: 0.85rem;
+    margin-top: 5px;
+  }
+  
+  .help-text {
+    color: var(--text-light);
+    font-size: 0.85rem;
+    margin-top: 5px;
+  }
+  
+  .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 20px;
+    border-top: 1px solid var(--border-color);
+  }
+  
+  .cancel-modal-btn {
+    padding: 10px 20px;
+    border-radius: var(--border-radius);
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    font-weight: 500;
+    transition: var(--transition);
+  }
+  
+  .cancel-modal-btn:hover {
+    background-color: var(--border-color);
+  }
+  
+  .submit-btn {
+    padding: 10px 20px;
+    border-radius: var(--border-radius);
+    background-color: var(--primary-color);
+    color: var(--white);
+    font-weight: 500;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+  }
+  
+  .submit-btn:hover {
+    background-color: var(--primary-dark);
+  }
+  
+  .reschedule-btn {
+    padding: 10px 20px;
+    border-radius: var(--border-radius);
+    background-color: rgba(156, 39, 176, 0.1);
+    color: #9c27b0;
+    font-weight: 500;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    margin-right: auto;
+    border: 1px solid rgba(156, 39, 176, 0.2);
+  }
+  
+  .reschedule-btn:hover {
+    background-color: rgba(156, 39, 176, 0.2);
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 1024px) {
+    .citas-filters {
+      flex-wrap: wrap;
+    }
+  
+    .filter-group {
+      min-width: 150px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .main-content {
+      margin-left: 0;
+      padding: 15px;
+    }
+  
+    .dashboard-container.sidebar-collapsed .main-content {
+      margin-left: 280px;
+    }
+  
+    .citas-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 15px;
+    }
+  
+    .add-cita-btn {
+      width: 100%;
+      justify-content: center;
+    }
+  
+    .cita-card {
+      flex-direction: column;
+    }
+  
+    .cita-date {
+      width: 100%;
+      padding: 15px;
+    }
+  
+    .form-row {
+      flex-direction: column;
+      gap: 0;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .cita-meta {
+      flex-direction: column;
+      gap: 10px;
+    }
+  
+    .cita-actions {
+      flex-wrap: wrap;
+    }
+  
+    .action-btn {
+      flex: 1;
+      justify-content: center;
+    }
+  }
+  
