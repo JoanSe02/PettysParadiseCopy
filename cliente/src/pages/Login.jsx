@@ -22,7 +22,7 @@ export default function Login() {
   } = useForm({
     mode: "onChange", 
   })
-  
+
   const validateEmail = (value) => {
     if (!value) return "El email es obligatorio";
     if (!value.includes("@")) return "Falta el símbolo @ en el email";
@@ -61,12 +61,27 @@ export default function Login() {
       if (response.data?.success) {
         localStorage.setItem("user", JSON.stringify(response.data.user))
         localStorage.setItem("token", response.data.token)
-        setIntentosFallidos(0) // Resetear contador de intentos
+        setIntentosFallidos(0)
 
         const userRole = response.data.user.id_rol
-        if (userRole === 1) navigate("/administrador")
-        else if (userRole === 2) navigate("/veterinario")
-        else navigate("/propietario")
+        switch(userRole) {
+          case 1: // Administrador
+            navigate("/administrador")
+            break
+          case 2: // Veterinario
+            navigate("/veterinario")
+            break
+          case 3: // Propietario
+            navigate("/propietario")
+            break
+          default:
+            Swal.fire({
+              icon: "error",
+              title: "Error",
+              text: "Rol de usuario no válido",
+              confirmButtonColor: "#e53935",
+            })
+        }
       } else {
         Swal.fire({
           icon: "warning",
@@ -85,7 +100,6 @@ export default function Login() {
           mensaje = `Correo o contraseña incorrectos. ${intentosRestantes > 0 ? `Intentos restantes: ${intentosRestantes}` : 'Cuenta bloqueada.'}`
         } else if (error.response.status === 403 && error.response.data?.cuenta_bloqueada) {
           const tiempoRestante = error.response.data?.tiempo_restante || 2
-          // Por esto:
           mensaje = `Cuenta bloqueada por demasiados intentos fallidos. ${tiempoRestante ? `Se desbloqueará en ${tiempoRestante} horas. ` : ''}Contacte al administrador para ayuda.` 
         } else {
           mensaje = error.response.data?.message || "Hubo un problema, intenta nuevamente"

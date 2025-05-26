@@ -21,8 +21,6 @@ router.post("/login", async (req, res) => {
     }
 
     connection = await pool.getConnection()
-
-    // Obtener usuario incluyendo los campos de bloqueo
     const [rows] = await connection.query("SELECT * FROM usuarios WHERE email = ?", [email])
 
     if (rows.length === 0) {
@@ -33,36 +31,6 @@ router.post("/login", async (req, res) => {
     }
 
     const user = rows[0]
-
-    // Verificar si la cuenta está bloqueada
-    if (user.cuenta_bloqueada) {
-      const [result] = await connection.query(
-        "SELECT TIMESTAMPDIFF(HOUR, fecha_bloqueo, NOW()) AS horas_transcurridas FROM usuarios WHERE id_usuario = ?",
-        [user.id_usuario],
-      )
-
-      const horasTranscurridas = result[0]?.horas_transcurridas || 0
-
-      if (horasTranscurridas < 2) {
-        const tiempoRestante = Math.ceil(2 - horasTranscurridas)
-        return res.status(403).json({
-          success: false,
-          message: `Cuenta bloqueada. Intente nuevamente en ${tiempoRestante} hora(s).`,
-          tiempo_restante: tiempoRestante,
-          cuenta_bloqueada: true,
-        })
-      } else {
-        // Desbloquear la cuenta después de 2 horas
-        await connection.query(
-          "UPDATE usuarios SET intentos_fallidos = 0, cuenta_bloqueada = 0, fecha_bloqueo = NULL WHERE id_usuario = ?",
-          [user.id_usuario],
-        )
-        // Actualizar el objeto user para continuar con el login
-        user.cuenta_bloqueada = 0
-        user.intentos_fallidos = 0
-      }
-    }
-
     const passwordMatch = await bcrypt.compare(contrasena, user.contrasena)
 
     if (!passwordMatch) {
@@ -97,15 +65,7 @@ router.post("/login", async (req, res) => {
       }
     }
 
-    // Si la contraseña es correcta, resetear intentos fallidos
-    if (user.intentos_fallidos > 0) {
-      await connection.query(
-        "UPDATE usuarios SET intentos_fallidos = 0, cuenta_bloqueada = 0, fecha_bloqueo = NULL WHERE id_usuario = ?",
-        [user.id_usuario],
-      )
-    }
-
-    // Crear token con información completa del usuario
+    // Create token with complete user information
     const tokenPayload = {
       id_usuario: user.id_usuario,
       email: user.email,
@@ -114,21 +74,27 @@ router.post("/login", async (req, res) => {
 
     const token = jwt.sign(tokenPayload, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN })
 
-    // Remover contraseña antes de enviar respuesta
+    // Remove sensitive data before sending response
     delete user.contrasena
+    delete user.intentos_fallidos
+    delete user.cuenta_bloqueada
+    delete user.fecha_bloqueo
 
     res.json({
       success: true,
       message: "Inicio de sesión exitoso",
       token,
-      user,
+      user: {
+        ...user,
+        role: user.id_rol // Include role for frontend routing
+      }
     })
   } catch (error) {
-    console.error("❌ Error en login:", error)
+    console.error("Error en login:", error)
     res.status(500).json({
       success: false,
       message: "Error en el servidor",
-      error: error.message,
+      error: error.message
     })
   } finally {
     if (connection) connection.release()
@@ -306,5 +272,3 @@ router.post("/register", async (req, res) => {
 })
 
 module.exports = router
-
-

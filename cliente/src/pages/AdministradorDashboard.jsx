@@ -1,4 +1,3 @@
-"use client"
 import { Link, Outlet } from "react-router-dom"
 import { useState, useEffect } from "react"
 import {
@@ -14,29 +13,60 @@ import {
   MdLocalHospital as IconHospital,
 } from "react-icons/md"
 import "../stylos/Usu.css"
+import { apiService } from "../services/api-service"
 
 const AdministradorDashboard = () => {
   const [userData, setUserData] = useState({
     nombre: "",
     apellido: "",
     email: "",
+    totalUsers: 0,
+    totalVets: 0,
+    totalPets: 0,
   })
 
   useEffect(() => {
-    // Cargar datos del usuario desde localStorage
-    try {
-      const user = JSON.parse(localStorage.getItem("user") || "{}")
-      if (user) {
-        setUserData({
-          nombre: user.nombre || "",
-          apellido: user.apellido || "",
-          email: user.email || "",
-        })
+    const loadDashboardData = async () => {
+      try {
+        // Cargar datos del usuario desde localStorage
+        const user = JSON.parse(localStorage.getItem("user") || "{}")
+        if (user) {
+          setUserData(prevState => ({
+            ...prevState,
+            nombre: user.nombre || "",
+            apellido: user.apellido || "",
+            email: user.email || "",
+          }))
+        }
+
+        // Cargar estadísticas desde el servidor
+        const [usersCount, vetsCount, petsCount] = await Promise.all([
+          apiService.get("/api/admin/users/count"),
+          apiService.get("/api/admin/vets/count"),
+          apiService.get("/api/admin/pets/count")
+        ])
+
+        setUserData(prevState => ({
+          ...prevState,
+          totalUsers: usersCount.total || 0,
+          totalVets: vetsCount.total || 0,
+          totalPets: petsCount.total || 0,
+        }))
+      } catch (error) {
+        console.error("Error al cargar datos del dashboard:", error)
       }
-    } catch (error) {
-      console.error("Error al cargar datos del usuario:", error)
     }
+
+    loadDashboardData()
   }, [])
+
+  const handleLogout = () => {
+    if (window.confirm("¿Estás seguro de que deseas cerrar sesión?")) {
+      localStorage.removeItem("user")
+      localStorage.removeItem("token")
+      window.location.href = "/"
+    }
+  }
 
   return (
     <div className="administrador-dashboard">
@@ -85,16 +115,7 @@ const AdministradorDashboard = () => {
               </Link>
             </li>
             <li className="logout-item">
-              <button
-                onClick={() => {
-                  if (window.confirm("¿Estás seguro de que deseas cerrar sesión?")) {
-                    localStorage.removeItem("user")
-                    localStorage.removeItem("token")
-                    window.location.href = "/"
-                  }
-                }}
-                className="logout-button"
-              >
+              <button onClick={handleLogout} className="logout-button">
                 <IconLogout /> Cerrar Sesión
               </button>
             </li>
@@ -133,10 +154,10 @@ const AdministradorDashboard = () => {
               <h2>Bienvenido, {userData.nombre}</h2>
               <p className="welcome-message">Este es tu panel de control como administrador.</p>
 
-              <div className="stats-container">
+              <div className="stats-grid">
                 <div className="stat-card">
                   <h3>Total Usuarios</h3>
-                  <p className="stat-value">{userData.totalUsers || 0}</p>
+                  <p className="stat-value">{userData.totalUsers}</p>
                   <Link to="/administrador/usuarios" className="card-link">
                     Ver usuarios <IconArrowRight />
                   </Link>
@@ -144,7 +165,7 @@ const AdministradorDashboard = () => {
 
                 <div className="stat-card">
                   <h3>Veterinarios Activos</h3>
-                  <p className="stat-value">{userData.totalVets || 0}</p>
+                  <p className="stat-value">{userData.totalVets}</p>
                   <Link to="/administrador/veterinarios" className="card-link">
                     Ver veterinarios <IconArrowRight />
                   </Link>
@@ -152,7 +173,7 @@ const AdministradorDashboard = () => {
 
                 <div className="stat-card">
                   <h3>Total Mascotas</h3>
-                  <p className="stat-value">{userData.totalPets || 0}</p>
+                  <p className="stat-value">{userData.totalPets}</p>
                   <Link to="/administrador/mascotas" className="card-link">
                     Ver mascotas <IconArrowRight />
                   </Link>
